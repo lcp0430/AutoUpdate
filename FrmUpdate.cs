@@ -276,7 +276,8 @@ namespace AutoUpdate
 			try
 			{
                 tempUpdatePath = Environment.GetEnvironmentVariable("Temp") + "\\" + "_" + updaterXmlFiles.FindNode("//Application").Attributes["applicationId"].Value + "_" + "u" + "_" + "p" + "_" + "\\";
-				appUpdater.DownAutoUpdateFile(tempUpdatePath);
+                deleteDirectory(tempUpdatePath);//É¾³ýÁÙÊ±Ä¿Â¼
+                appUpdater.DownAutoUpdateFile(tempUpdatePath);
 			}
 			catch
 			{
@@ -318,6 +319,20 @@ namespace AutoUpdate
         }
 
         #endregion
+
+        private void deleteDirectory(String path)
+        {
+            DirectoryInfo dir = new DirectoryInfo(path);
+            if (dir.Exists)
+            {
+                //DirectoryInfo[] childs = dir.GetDirectories();
+                //foreach (DirectoryInfo child in childs)
+                //{
+                //    child.Delete(true);
+                //}
+                dir.Delete(true);
+            }
+        }
 
         public static void WriteLog(String msg)
         {
